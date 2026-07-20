@@ -1,0 +1,49 @@
+## Visual Studio / Roslyn / .NET Build Outputs
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## NuGet Packages and Dependencies
+packages/
+!packages/build/
+!packages/*.nupkg
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+tools/
+
+## Visual Studio User Settings and Cache
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.csproj.user
+
+## VS Code and JetBrains Rider
+.vscode/
+.idea/
+*.sln.iml
+
+## Test Results and Publish Outputs
+[Tt]est[Rr]esult/
+[Bb]uild[Ll]og/
+*.pubxml
+*.publishproj
+*.trx
+
+## OS Specific Files (Mac and Windows)
+.DS_Store
+Thumbs.db
