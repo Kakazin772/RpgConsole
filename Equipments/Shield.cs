@@ -12,10 +12,5 @@ namespace Equipments
         {
             DefenseBonus = defenseBonus;
         }
-
-        public override int UseItem()
-        {
-            return DefenseBonus;
-        }
     }
 }

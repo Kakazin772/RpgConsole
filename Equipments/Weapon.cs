@@ -7,16 +7,11 @@ namespace ConsolQuest.Equipments
 {
     class Weapon : Item
     {
-        private int AttackBonus;
+        public int AttackBonus { get; private set; }
 
         public Weapon(string name, int attackBonus) : base(name)
         {
             AttackBonus = attackBonus;
-        }
-
-        public override int UseItem()
-        {
-            return AttackBonus;
         }
     }
 }

@@ -6,16 +6,11 @@ namespace Equipments
 {
     class Potion : Item
     {
-        private int HealBonus;
+        public int HealBonus { get; private set; }
 
         public Potion(string name, int healBonus) : base(name)
         {
             HealBonus = healBonus;
-        }
-
-        public override int UseItem()
-        {
-            return HealBonus;
         }
     }
 }

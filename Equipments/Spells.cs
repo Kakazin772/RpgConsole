@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsolQuest.Equipments
 {
-    enum Speels
+    enum Spells
     {
         Fireball,
         IceBeam,

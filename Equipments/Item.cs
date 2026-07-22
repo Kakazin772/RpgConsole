@@ -16,7 +16,5 @@ namespace Equipments
         {
             Name = name;
         }
-
-        public abstract int UseItem();
     }
 }
