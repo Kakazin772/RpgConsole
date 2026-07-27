@@ -16,21 +16,6 @@ namespace Player
             _spells.Add(spel1);
         }
 
-        public override void HealDamage(int amount)
-        {
-            if (ActualLife == life)
-            {
-                throw new GameException("Sua vida ja esta cheia");
-            }
-
-            ActualLife = Math.Min(ActualLife + amount, life);
-        }
-
-        public override void TakeDamage(int amount)
-        {
-            ActualLife = Math.Max(ActualLife -  amount, 0);
-        }
-
         public override void LevelUp()
         {
             IncreaseBaseAttributes(lifeGain: 5, damageGain: 1, defenseGain: 1);
@@ -60,14 +45,27 @@ namespace Player
             }
         }
 
-        public override void GainXp(int amount)
+        public int CastSpell(Spells spell)
         {
-            Xp += amount;
-
-            while (Xp >= XpNecessarioProximoNivel())
+            switch (spell)
             {
-                Xp -= XpNecessarioProximoNivel();
-                LevelUp();
+                case Spells.Fireball:
+                    return 5;
+
+                case Spells.EletricShot:
+                    return 3;
+
+                case Spells.SparkGap:
+                    return 8;
+
+                case Spells.IceBeam:
+                    return 6;
+
+                case Spells.Regrowth:
+                    return 5;
+
+                default:
+                    return 0;
             }
         }
     }

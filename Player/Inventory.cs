@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ConsolQuest;
 using ConsolQuest.Equipments;
 using Equipments;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Player
 {
@@ -13,5 +14,88 @@ namespace Player
         private List<Item> items = new List<Item>();
         private Weapon equippedWeapon;
         private Shield equippedShield;
+
+        public Inventory()
+        {
+        }
+
+        public Inventory(int torches, int gold, List<Item> items, Weapon equippedWeapon, Shield equippedShield)
+        {
+            this.torches = torches;
+            this.gold = gold;
+            this.items = items;
+            this.equippedWeapon = equippedWeapon;
+            this.equippedShield = equippedShield;
+        }
+
+        public void AddGold(int amount)
+        {
+            gold = gold + amount;
+        }
+
+        public void ConsumeTorch()
+        {
+            torches = torches - 1;
+        }
+
+        public void AddItem(Item item)
+        {
+            items.Add(item);
+        }
+
+        public void RemoveItem(Item item)
+        {
+            items.Remove(item);
+        }
+
+        public void ViewInventory()
+        {
+            Console.WriteLine("=============================");
+            Console.WriteLine($"Ouro: {gold} | Tochas: {torches}");
+            Console.WriteLine("-- Itens --");
+
+            foreach (Item item in items)
+            {
+                string status = (item == equippedWeapon || item == equippedShield) ? " [Equipado]" : "";
+                Console.WriteLine($"{item.Name}{status}");
+            }
+
+            Console.WriteLine("=============================");
+        }
+
+        public void EquipItem(Item item)
+        {
+            if (!items.Contains(item))
+            {
+                throw new GameException("Item não está no inventário.");
+            }
+
+            if (item is Weapon weapon)
+            {
+                equippedWeapon = weapon;
+            }
+            else
+            {
+                if (item is Shield shield)
+                {
+                    equippedShield = shield;
+                }
+                else
+                {
+                    throw new GameException("Este item não pode ser equipado.");
+                }
+            }
+        }
+
+        public int UsePotion(Potion potion)
+        {
+            if (!items.Contains(potion))
+            {
+                throw new GameException("Poção não está no inventário.");
+            }
+
+            items.Remove(potion);
+            return potion.HealBonus;
+        }
     }
 }

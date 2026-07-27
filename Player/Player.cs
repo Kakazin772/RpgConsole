@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsolQuest;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -44,9 +45,32 @@ namespace Player
             return level * 100;
         }
 
+        public void TakeDamage(int amount)
+        {
+            ActualLife = Math.Max(ActualLife - amount, 0);
+        }
+
+        public void HealDamage(int amount)
+        {
+            if (ActualLife == life)
+            {
+                throw new GameException("Sua vida ja esta cheia");
+            }
+
+            ActualLife = Math.Min(ActualLife + amount, life);
+        }
+
+        public void GainXp(int amount)
+        {
+            Xp += amount;
+
+            while (Xp >= XpNecessarioProximoNivel())
+            {
+                Xp -= XpNecessarioProximoNivel();
+                LevelUp();
+            }
+        }
+
         public abstract void LevelUp();
-        public abstract void GainXp(int amount);
-        public abstract void TakeDamage(int amount);
-        public abstract void HealDamage(int amount);
     }
 }

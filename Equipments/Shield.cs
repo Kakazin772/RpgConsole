@@ -6,7 +6,7 @@ namespace Equipments
 {
     class Shield : Item
     {
-        private int DefenseBonus;
+        public int DefenseBonus { get; private set; }
 
         public Shield(string name, int defenseBonus) : base(name)
         {
