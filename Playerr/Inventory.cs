@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Player
+namespace Playerr
 {
     class Inventory
     {
@@ -19,13 +19,10 @@ namespace Player
         {
         }
 
-        public Inventory(int torches, int gold, List<Item> items, Weapon equippedWeapon, Shield equippedShield)
+        public Inventory(int torches, int gold)
         {
             this.torches = torches;
             this.gold = gold;
-            this.items = items;
-            this.equippedWeapon = equippedWeapon;
-            this.equippedShield = equippedShield;
         }
 
         public void AddGold(int amount)

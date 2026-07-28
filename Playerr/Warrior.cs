@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Player
+namespace Playerr
 {
     class Warrior : Player
     {
