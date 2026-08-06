@@ -9,6 +9,7 @@ namespace Playerr
     class Mage : Player
     {
         private HashSet<Spells> _spells = new HashSet<Spells>();
+        public IReadOnlyCollection<Spells> SpellsList => _spells;
         private readonly Random random = new Random();
 
         public Mage (int life, int actualLife, int xp, int level, string name, int damage, int defense, Inventory inventory, Spells spel1) : base(life, actualLife, xp, level, name, damage, defense, inventory)

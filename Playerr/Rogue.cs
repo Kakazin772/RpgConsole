@@ -14,11 +14,5 @@ namespace Playerr
         {
             IncreaseBaseAttributes(lifeGain: 2, damageGain: 4, defenseGain: 2);
         }
-
-        public void SuperFlee()
-        {
-            //TODO: Implementar quando existir a classe combatManager
-            //ter 100% de eficacia ao fugir mas gastar 2 tochas
-        }
     }
 }
