@@ -2,6 +2,7 @@
 using ConsolQuest.Equipments;
 using Enemys;
 using Playerr;
+using System;
 
 namespace Manager
 {
@@ -40,13 +41,6 @@ namespace Manager
                     return (CombatResult)result;
                 }
 
-                if (player.Inventory.torches <= 0)
-                {
-                    Console.WriteLine("Suas tochas acabaram!");
-
-                    return CombatResult.Defeat;
-                }
-
                 ExecuteEnemyTurn();
             }
 
@@ -60,6 +54,7 @@ namespace Manager
                 case CombatAction.Attack:
                     int damage = CalculateDamage(player.damage, enemy.Defense);
                     enemy.TakeDamage(damage);
+                    Console.WriteLine($"Voce causou {damage} de dano em {enemy.Name}!");
 
                     return null;
 
@@ -113,31 +108,33 @@ namespace Manager
             {
                 Mage mage = (Mage)player;
 
-                Console.WriteLine("Digita qual magia vc deseja utilizar?");
+                Console.WriteLine("Digite qual magia vc deseja utilizar?");
 
                 foreach (Spells spells in mage.SpellsList)
                 {
                     Console.WriteLine($"[{(int)spells}] {spells}");
                 }
 
-                if (!int.TryParse(Console.ReadLine(), out int spell) || !Enum.IsDefined(typeof(Spells), spell))
+                int spell;
+
+                while (!int.TryParse(Console.ReadLine(), out spell) || !Enum.IsDefined(typeof(Spells), spell))
                 {
-                    throw new GameException("Açao Invalida");
+                    Console.WriteLine("Opção inválida. Digite o número de uma magia da lista.");
                 }
 
                 Spells spellDecide = (Spells)spell;
 
-                int valor = mage.CastSpell(spellDecide);
+                int value = mage.CastSpell(spellDecide);
 
                 if (spellDecide == Spells.Regrowth)
                 {
-                    player.HealDamage(valor);
-                    Console.WriteLine($"Voce recuperou {valor} de vida!");
+                    player.HealDamage(value);
+                    Console.WriteLine($"Voce recuperou {value} de vida!");
                 }
                 else
                 {
-                    enemy.TakeDamage(valor);
-                    Console.WriteLine($"Voce causou {valor} de dano em {enemy.Name}!");
+                    enemy.TakeDamage(CalculateDamage(value, enemy.Defense));
+                    Console.WriteLine($"Voce causou {value} de dano em {enemy.Name}!");
                 }
 
                 return null;
