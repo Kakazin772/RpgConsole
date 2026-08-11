@@ -8,7 +8,7 @@ namespace Equipments
     {
         public int HealBonus { get; private set; }
 
-        public Potion(string name, int healBonus) : base(name)
+        public Potion(string name, int level, int healBonus) : base(name, level)
         {
             HealBonus = healBonus;
         }

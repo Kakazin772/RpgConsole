@@ -1,6 +1,7 @@
 ﻿using System;
 using Equipments;
 using Playerr;
+using Manager;
 
 namespace ConsolQuest
 {
@@ -15,6 +16,10 @@ namespace ConsolQuest
             Player player = new Warrior(20, 20, 20, 10, "Joao", 10, 5, inventory);
 
             player.Inventory.AddItem(EscudoMilFaces);
+
+            GameManager game = new GameManager();
+
+            game.StartGame();
 
             player.Inventory.ViewInventory();
         }

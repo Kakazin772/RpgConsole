@@ -30,9 +30,19 @@ namespace Playerr
             gold = gold + amount;
         }
 
+        public void RemoveGold(int amout)
+        {
+            gold = gold - amout;
+        }
+
         public void ConsumeTorch()
         {
             torches = torches - 1;
+        }
+
+        public void AddTorch()
+        {
+            torches++;
         }
 
         public void AddItem(Item item)

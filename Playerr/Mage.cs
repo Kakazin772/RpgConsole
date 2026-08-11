@@ -51,19 +51,19 @@ namespace Playerr
             switch (spell)
             {
                 case Spells.Fireball:
-                    return 5;
+                    return damage + 5;
 
                 case Spells.EletricShot:
-                    return 3;
+                    return damage + 3;
 
                 case Spells.SparkGap:
-                    return 8;
+                    return damage + 8;
 
                 case Spells.IceBeam:
-                    return 6;
+                    return damage + 6;
 
                 case Spells.Regrowth:
-                    return 5;
+                    return 15;
 
                 default:
                     return 0;

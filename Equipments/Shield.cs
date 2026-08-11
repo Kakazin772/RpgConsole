@@ -8,7 +8,7 @@ namespace Equipments
     {
         public int DefenseBonus { get; private set; }
 
-        public Shield(string name, int defenseBonus) : base(name)
+        public Shield(string name, int level, int defenseBonus) : base(name, level)
         {
             DefenseBonus = defenseBonus;
         }

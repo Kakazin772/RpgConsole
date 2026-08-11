@@ -9,7 +9,7 @@ namespace ConsolQuest.Equipments
     {
         public int AttackBonus { get; private set; }
 
-        public Weapon(string name, int attackBonus) : base(name)
+        public Weapon(string name, int level, int attackBonus) : base(name, level)
         {
             AttackBonus = attackBonus;
         }
