@@ -1,5 +1,5 @@
 ﻿using ConsolQuest;
-using ConsolQuest.Equipments;
+using Equipments;
 using System;
 using System.Collections.Generic;
 using System.Text;

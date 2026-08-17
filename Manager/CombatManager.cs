@@ -1,5 +1,5 @@
 ﻿using ConsolQuest;
-using ConsolQuest.Equipments;
+using Equipments;
 using Enemys;
 using Playerr;
 using System;

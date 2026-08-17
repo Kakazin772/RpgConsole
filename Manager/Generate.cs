@@ -1,13 +1,13 @@
-﻿using ConsolQuest.Equipments;
-using Dungeon;
+﻿using Dungeon;
 using Enemys;
 using Equipments;
 using Playerr;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsolQuest.Manager
+namespace Manager
 {
     internal class Generate
     {
@@ -23,6 +23,8 @@ namespace ConsolQuest.Manager
 
         public void GenerateDungeon()
         {
+            Dungeon.Clear();
+
             int i;
 
             for (i = 0; i < 5; i++)
@@ -54,6 +56,11 @@ namespace ConsolQuest.Manager
 
                 Dungeon.Add(room);
             }
+
+            Room room6 = new Room(6, RoomType.Enemy);
+            room6.roomEnemy = GenerateBoss();
+
+            Dungeon.Add(room6);
         }
 
         private static readonly (string name, int life, int attack, int defense, int xp, int level)[] enemyTemplates = new[]
@@ -85,6 +92,30 @@ namespace ConsolQuest.Manager
             ("Minotauro", 75, 20, 5, 80, 3),
         };
 
+        private static readonly (string name, int life, int attack, int defense, int xp, int level, int bonusAttack)[] bossTemplates = new[]
+        {
+            // Focados em Dano Bruto (Ataque base alto)
+            ("Mestre das Ilusões", 115, 20, 3, 150, 4, 6),       // Special Attack: 26
+            ("Necromante Supremo", 120, 19, 4, 150, 4, 7),       // Special Attack: 26
+            ("Lich Ancestral", 125, 20, 4, 150, 4, 8),           // Special Attack: 28
+            ("Rainha Aranha", 125, 18, 4, 150, 4, 5),            // Special Attack: 23
+    
+            // Equilibrados (Bons atributos em tudo)
+            ("Rei Goblin", 130, 17, 5, 150, 4, 5),               // Special Attack: 22
+            ("Lobo Alfa Sanguinário", 135, 16, 5, 150, 4, 6),    // Special Attack: 22
+            ("Senhor das Sombras", 135, 18, 6, 150, 4, 7),       // Special Attack: 25
+            ("Comandante Orc Sanguinário", 140, 18, 6, 150, 4, 6), // Special Attack: 24
+            ("O Rei Destruído", 145, 18, 6, 150, 4, 8),          // Special Attack: 26
+            ("Dragão do Submundo", 150, 19, 5, 150, 4, 9),       // Special Attack: 28
+
+            // Focados em Tanque (Ataque base menor, mas bônus especial massivo)
+            ("Esqueleto Colossal", 140, 15, 7, 150, 4, 7),       // Special Attack: 22
+            ("Hidra Peçonhenta", 145, 17, 5, 150, 4, 5),         // Special Attack: 22
+            ("Ogro Esmagador", 150, 16, 6, 150, 4, 8),           // Special Attack: 24
+            ("Behemoth Corrompido", 155, 15, 7, 150, 4, 9),      // Special Attack: 24
+            ("Golem de Ferro Maciço", 160, 14, 8, 150, 4, 10)    // Special Attack: 24
+        };
+
         private int RoomLevel(int roomId)
         {
             if (roomId <= 2) return 1;
@@ -97,6 +128,13 @@ namespace ConsolQuest.Manager
             var candidatos = enemyTemplates.Where(t => t.level == nivelDungeon).ToList();
             var escolhido = candidatos[random.Next(candidatos.Count)];
             return new Enemy(escolhido.name, escolhido.life, escolhido.attack, escolhido.defense, escolhido.xp, escolhido.level);
+        }
+
+        private Boss GenerateBoss()
+        {
+            var candidatos = bossTemplates.ToList();
+            var escolhido = candidatos[random.Next(candidatos.Count)];
+            return new Boss(escolhido.name, escolhido.life, escolhido.attack, escolhido.defense, escolhido.xp, escolhido.level, escolhido.bonusAttack);
         }
 
         List<Item> lootPool = new List<Item>

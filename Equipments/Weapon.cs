@@ -1,9 +1,8 @@
-﻿using Equipments;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsolQuest.Equipments
+namespace Equipments
 {
     class Weapon : Item
     {

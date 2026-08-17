@@ -1,5 +1,4 @@
 ﻿using ConsolQuest;
-using ConsolQuest.Equipments;
 using Dungeon;
 using Enemys;
 using Equipments;
@@ -15,6 +14,7 @@ namespace Manager
         public CombatManager Combat { get; private set; }
         public Player player { get; private set; }
         public List<Room> Dungeon { get; private set; } = new List<Room>();
+        private Generate generates;
 
         public int CurrentRoomIndex { get; private set; }
         public int MonsterDefeated { get; private set; }
@@ -54,6 +54,21 @@ namespace Manager
                     player = new Mage(50, 50, 0, 1, name, 16, 2, inventory, spell);
                     break;
             }
+
+            generates = new Generate(player, Dungeon);
+
+            generates.GenerateDungeon();
+            Combat = new CombatManager();
+
+            for (int i = 0; i < 6; i++)
+            {
+
+            }
+        }
+
+        private void ExploreRoom(RoomType type)
+        {
+
         }
     }
 }

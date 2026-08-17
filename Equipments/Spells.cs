@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsolQuest.Equipments
+namespace Equipments
 {
     enum Spells
     {
