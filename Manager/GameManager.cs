@@ -62,13 +62,66 @@ namespace Manager
 
             for (int i = 0; i < 6; i++)
             {
+                player.Inventory.ConsumeTorch();
 
+                if (player.Inventory.torches <= 0)
+                {
+                     //process game over denovo para derrota pela escuridao
+                    break;
+                }
+
+                ExploreRoom(Dungeon[i]);
+
+                if (player.ActualLife <= 0 || player.Inventory.torches <= 0)
+                {
+                    break; 
+                }
             }
         }
-
-        private void ExploreRoom(RoomType type)
+        
+        private void ExploreRoom(Room room)
         {
+            switch (room.roomType)
+            {
+                case RoomType.Chest:
+                    Console.WriteLine($"Voce encontrou um baú! e dentro dele havia {room.roomItem.Name}");
+                    player.Inventory.AddItem(room.roomItem);
+                    break;
 
+                case RoomType.Event:
+                    generates.ExecuteRandomEvent();
+                    break;
+
+                case RoomType.Empty:
+                    Console.WriteLine("Ao entrar na sala voce percebe q ela estava vazia!");
+                    break;
+
+                case RoomType.Enemy:
+                    CombatResult result = Combat.StartCombat(player, room.roomEnemy);
+
+                    if (result == CombatResult.Defeat)
+                    {
+                        //adicionar aqui o metodo processgameover q identifica se o jogador perdeu ou ganhou a partida
+                        break;
+                    }
+
+                    if (result == CombatResult.Victory)
+                    {
+                        player.GainXp(room.roomEnemy.XpReward);
+                        MonsterDefeated++;
+                        Console.WriteLine($"Você derrotou {room.roomEnemy.Name} e ganhou {room.roomEnemy.XpReward} de XP!");
+
+                        if (room.roomEnemy is Boss)
+                        {
+                            //adicionar aqui o metodo processgameover q identifica se o jogador perdeu ou ganhou a partida
+                        }
+                        break;
+                    }
+
+                    break;
+            }
+
+            room.Visited = true;
         }
     }
 }

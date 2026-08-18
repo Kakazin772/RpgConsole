@@ -9,7 +9,7 @@ namespace Dungeon
     class Room
     {
         public int Id { get; private set; }
-        public bool Visited { get; private set; }
+        public bool Visited { get; set; }
 
         public RoomType roomType { get; private set; }
         public Item roomItem { get; set; }
