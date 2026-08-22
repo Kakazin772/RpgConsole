@@ -21,9 +21,11 @@ namespace Manager
 
             while(player.ActualLife > 0 && enemy.Life > 0)
             {
-                if (!int.TryParse(Console.ReadLine(), out int input) || !Enum.IsDefined(typeof(CombatAction), input))
+                int input;
+
+                while (!int.TryParse(Console.ReadLine(), out input) || !Enum.IsDefined(typeof(CombatAction), input))
                 {
-                    throw new GameException("Açao Invalida");
+                    Console.WriteLine("Ação inválida. Escolha [1] Atacar [2] Defender [3] Fugir [4] Especial.");
                 }
 
                 CombatAction action = (CombatAction)input;

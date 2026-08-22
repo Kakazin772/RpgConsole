@@ -6,8 +6,6 @@ namespace Playerr
 {
     class Warrior : Player
     {
-        public int TemporaryDefense;
-
         public Warrior(int life, int actualLife, int xp, int level, string name, int damage, int defense, Inventory inventory) : base(life, actualLife, xp, level, name, damage, defense, inventory)
         {
         }

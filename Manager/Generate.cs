@@ -6,6 +6,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ConsolQuest;
 
 namespace Manager
 {

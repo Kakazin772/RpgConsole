@@ -90,8 +90,7 @@ namespace Manager
 
                 if (player.Inventory.torches <= 0)
                 {
-                    // process game over — derrota por escuridão
-                    break;
+                    ProcessGameOver(false);
                 }
 
                 ExploreRoom(Dungeon[i]);
@@ -125,8 +124,7 @@ namespace Manager
 
                     if (result == CombatResult.Defeat)
                     {
-                        //adicionar aqui o metodo processgameover q identifica se o jogador perdeu ou ganhou a partida
-                        break;
+                        ProcessGameOver(false);
                     }
 
                     if (result == CombatResult.Victory)
@@ -137,7 +135,7 @@ namespace Manager
 
                         if (room.roomEnemy is Boss)
                         {
-                            //adicionar aqui o metodo processgameover q identifica se o jogador perdeu ou ganhou a partida
+                            ProcessGameOver(true);
                         }
                         break;
                     }
@@ -223,6 +221,32 @@ namespace Manager
                         break;
                 }
             }
+        }
+
+        private void ProcessGameOver(bool victory)
+        {
+            Console.WriteLine("\n=============================");
+
+            if (victory)
+            {
+                Console.WriteLine("           VITÓRIA!");
+                Console.WriteLine("Você derrotou o Chefe da Dungeon!");
+            }
+            else
+            {
+                Console.WriteLine("          GAME OVER");
+                Console.WriteLine("Sua jornada chegou ao fim...");
+            }
+
+            Console.WriteLine("=============================");
+            Console.WriteLine($"Nível final alcançado: {player.level}");
+            Console.WriteLine($"Monstros derrotados: {MonsterDefeated}");
+            Console.WriteLine("=============================");
+
+            Console.WriteLine("\nPressione qualquer tecla para continuar...");
+            Console.ReadKey();
+
+            Environment.Exit(0);
         }
     }
 }
