@@ -10,9 +10,9 @@ namespace Playerr
     {
         public int torches { get; private set; }
         public int gold { get; private set; }
-        private List<Item> items = new List<Item>();
-        private Weapon equippedWeapon;
-        private Shield equippedShield;
+        public List<Item> items { get; private set; } = new List<Item>();
+        public Weapon equippedWeapon { get; private set; }
+        public Shield equippedShield { get; private set; }
 
         public Inventory()
         {
@@ -31,12 +31,12 @@ namespace Playerr
 
         public void RemoveGold(int amout)
         {
-            gold = gold - amout;
+            gold = Math.Max(gold - amout, 0);
         }
 
         public void ConsumeTorch()
         {
-            torches = torches - 1;
+            torches = Math.Max(torches - 1, 0);
         }
 
         public void AddTorch()
@@ -56,6 +56,8 @@ namespace Playerr
 
         public void ViewInventory()
         {
+            int i = 0;
+
             Console.WriteLine("=============================");
             Console.WriteLine($"Ouro: {gold} | Tochas: {torches}");
             Console.WriteLine("-- Itens --");
@@ -63,7 +65,8 @@ namespace Playerr
             foreach (Item item in items)
             {
                 string status = (item == equippedWeapon || item == equippedShield) ? " [Equipado]" : "";
-                Console.WriteLine($"{item.Name}{status}");
+                Console.WriteLine($"{i} - {item.Name}{status}");
+                i++;
             }
 
             Console.WriteLine("=============================");

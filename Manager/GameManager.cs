@@ -25,7 +25,7 @@ namespace Manager
             int classe;
 
             Inventory inventory = new Inventory(10, 0);
-            
+
             Console.WriteLine("Bem vindo ao mundo de ConsolQuest");
             Console.Write("Digite seu nome: ");
             name = Console.ReadLine();
@@ -62,11 +62,35 @@ namespace Manager
 
             for (int i = 0; i < 6; i++)
             {
+                bool avancar = false;
+
+                while (!avancar)
+                {
+                    Console.WriteLine($"\n--- {player.Name} | Vida: {player.ActualLife}/{player.life} | Nível: {player.level} | Tochas: {player.Inventory.torches} ---");
+                    Console.WriteLine("[1] Avançar para a próxima sala");
+                    Console.WriteLine("[2] Abrir Inventário");
+
+                    if (!int.TryParse(Console.ReadLine(), out int opcao) || (opcao != 1 && opcao != 2))
+                    {
+                        Console.WriteLine("Opção inválida.");
+                        continue;
+                    }
+
+                    if (opcao == 1)
+                    {
+                        avancar = true;
+                    }
+                    else
+                    {
+                        OpenInventory();
+                    }
+                }
+
                 player.Inventory.ConsumeTorch();
 
                 if (player.Inventory.torches <= 0)
                 {
-                     //process game over denovo para derrota pela escuridao
+                    // process game over — derrota por escuridão
                     break;
                 }
 
@@ -74,11 +98,11 @@ namespace Manager
 
                 if (player.ActualLife <= 0 || player.Inventory.torches <= 0)
                 {
-                    break; 
+                    break;
                 }
             }
         }
-        
+
         private void ExploreRoom(Room room)
         {
             switch (room.roomType)
@@ -122,6 +146,83 @@ namespace Manager
             }
 
             room.Visited = true;
+        }
+
+        public void OpenInventory()
+        {
+            bool sair = false;
+
+            while (!sair)
+            {
+                player.Inventory.ViewInventory();
+
+                Console.WriteLine("[1] Equipar item");
+                Console.WriteLine("[2] Usar poção");
+                Console.WriteLine("[3] Voltar");
+
+                if (!int.TryParse(Console.ReadLine(), out int opcao) || opcao < 1 || opcao > 3)
+                {
+                    Console.WriteLine("Opção inválida.");
+                    continue;
+                }
+
+                switch (opcao)
+                {
+                    case 1:
+                        Console.WriteLine("Digite o numero do item desejado:");
+
+                        if (!int.TryParse(Console.ReadLine(), out int itemOption) || itemOption < 0 || itemOption >= player.Inventory.items.Count)
+                        {
+                            Console.WriteLine("Opção inválida.");
+                            continue;
+                        }
+
+                        try
+                        {
+                            player.Inventory.EquipItem(player.Inventory.items[itemOption]);
+                            Console.WriteLine("Item equipado!");
+                        }
+                        catch (GameException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+
+                        break;
+
+                    case 2:
+                        Console.WriteLine("Digite o numero da poçao desejada:");
+
+                        if (!int.TryParse(Console.ReadLine(), out int potionOption) || potionOption < 0 || potionOption >= player.Inventory.items.Count)
+                        {
+                            Console.WriteLine("Opção inválida.");
+                            continue;
+                        }
+
+                        if (player.Inventory.items[potionOption] is not Potion)
+                        {
+                            Console.WriteLine("Este Item nao é uma poção");
+                            continue;
+                        }
+
+                        try
+                        {
+                            int cura = player.Inventory.UsePotion(player.Inventory.items[potionOption] as Potion);
+
+                            player.HealDamage(cura);
+                            Console.WriteLine($"Você recuperou {cura} de vida!");
+                        }
+                        catch (GameException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+
+                        break;
+
+                    case 3:
+                        sair = true;
+                        break;
+                }
+            }
         }
     }
 }

@@ -52,7 +52,8 @@ namespace Manager
             switch (action)
             {
                 case CombatAction.Attack:
-                    int damage = CalculateDamage(player.damage, enemy.Defense);
+                    int weaponBonus = player.Inventory.equippedWeapon?.AttackBonus ?? 0;
+                    int damage = CalculateDamage(player.damage + weaponBonus, enemy.Defense);
                     enemy.TakeDamage(damage);
                     Console.WriteLine($"Voce causou {damage} de dano em {enemy.Name}!");
 
@@ -93,7 +94,8 @@ namespace Manager
         private void ExecuteEnemyTurn()
         {
             int attackValue = enemy is Boss boss ? boss.SpecialAttack() : enemy.Attack;
-            player.TakeDamage(CalculateDamage(attackValue, player.defense * defenseMultiplier));
+            int shieldBonus = player.Inventory.equippedShield?.DefenseBonus ?? 0;
+            player.TakeDamage(CalculateDamage(attackValue, (player.defense + shieldBonus) * defenseMultiplier));
             defenseMultiplier = 1;
         }
 
