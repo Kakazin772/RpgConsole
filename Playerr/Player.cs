@@ -42,7 +42,7 @@ namespace Playerr
 
         protected virtual int XpNecessarioProximoNivel()
         {
-            return level * 100;
+            return level * 10;
         }
 
         public void TakeDamage(int amount)

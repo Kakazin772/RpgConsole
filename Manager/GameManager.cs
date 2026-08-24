@@ -55,6 +55,8 @@ namespace Manager
                     break;
             }
 
+            Console.Clear();
+
             generates = new Generate(player, Dungeon);
 
             generates.GenerateDungeon();
@@ -66,6 +68,8 @@ namespace Manager
 
                 while (!avancar)
                 {
+                    Console.Clear();
+                    Console.WriteLine(GerarMapa(i));
                     Console.WriteLine($"\n--- {player.Name} | Vida: {player.ActualLife}/{player.life} | Nível: {player.level} | Tochas: {player.Inventory.torches} ---");
                     Console.WriteLine("[1] Avançar para a próxima sala");
                     Console.WriteLine("[2] Abrir Inventário");
@@ -75,6 +79,8 @@ namespace Manager
                         Console.WriteLine("Opção inválida.");
                         continue;
                     }
+
+                    Console.Clear();
 
                     if (opcao == 1)
                     {
@@ -99,6 +105,9 @@ namespace Manager
                 {
                     break;
                 }
+
+                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                Console.ReadKey();
             }
         }
 
@@ -152,6 +161,7 @@ namespace Manager
 
             while (!sair)
             {
+                Console.Clear();
                 player.Inventory.ViewInventory();
 
                 Console.WriteLine("[1] Equipar item");
@@ -218,6 +228,7 @@ namespace Manager
 
                     case 3:
                         sair = true;
+                        Console.Clear();
                         break;
                 }
             }
@@ -247,6 +258,25 @@ namespace Manager
             Console.ReadKey();
 
             Environment.Exit(0);
+        }
+
+        private string GerarMapa(int posicaoAtual)
+        {
+            var partes = new List<string>();
+
+            for (int i = 0; i < Dungeon.Count; i++)
+            {
+                if (i == posicaoAtual)
+                {
+                    partes.Add("[x]");
+                }
+                else
+                {
+                    partes.Add("[]");
+                }
+            }
+
+            return string.Join("--", partes);
         }
     }
 }

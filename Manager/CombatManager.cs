@@ -19,9 +19,17 @@ namespace Manager
             this.enemy = enemy;
             this.player = player;
 
+            Console.Clear();
+            Console.WriteLine($"Voce encontrou uma ameaça! {enemy.Name}");
+
             while(player.ActualLife > 0 && enemy.Life > 0)
             {
                 int input;
+
+                Console.Clear();
+                Console.WriteLine($"--- {enemy.Name}: {enemy.Life} HP ---");
+                Console.WriteLine($"--- {player.Name}: {player.ActualLife}/{player.life} HP ---");
+                Console.WriteLine("Escolha suas opçoes:\n[1]Atacar\n[2]Defender\n[3]Fugir\n[4]Especial");
 
                 while (!int.TryParse(Console.ReadLine(), out input) || !Enum.IsDefined(typeof(CombatAction), input))
                 {
@@ -44,6 +52,10 @@ namespace Manager
                 }
 
                 ExecuteEnemyTurn();
+
+                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                Console.Clear();
             }
 
             return player.ActualLife > 0 ? CombatResult.Victory : CombatResult.Defeat;
@@ -112,6 +124,7 @@ namespace Manager
             {
                 Mage mage = (Mage)player;
 
+                Console.Clear();
                 Console.WriteLine("Digite qual magia vc deseja utilizar?");
 
                 foreach (Spells spells in mage.SpellsList)
